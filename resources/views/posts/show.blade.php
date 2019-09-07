@@ -26,7 +26,7 @@
             <h2 class="h5 mb-4">
                 コメント
             </h2>
-            <form class="mb-4" method="POST" action="{{ route('comments.store') }}">
+            <form class="mb-4" method="POST" action="{{ route('comments.store') }}" name="commentForm">
                 @csrf
 
                 <input name="post_id" type="hidden" value="{{ $post->id }}">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" disabled id="commentButton">
                         コメントする
                     </button>
                 </div>
@@ -67,3 +67,18 @@
     </div>
 </div>
 @endsection
+
+<script>
+    window.onload = function() {
+        // ここに読み込み完了時に実行してほしい内容を書く。
+        let element = document.getElementById("body");
+        let commentButton = document.getElementById("commentButton");
+        element.addEventListener('input', (event) => {
+            if (event.srcElement.value.length > 0) {
+                commentButton.disabled = false;
+            } else {
+                commentButton.disabled = true;
+            }
+        });
+    };
+</script>
